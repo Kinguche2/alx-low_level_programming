@@ -41,5 +41,5 @@ char *argstostr(int ac, char **av)
 		k++;
 	}
 
-	return (0);
+	return (str);
 }
