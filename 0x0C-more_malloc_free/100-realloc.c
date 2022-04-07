@@ -1,50 +1,45 @@
-#include <stdio.h>
 #include <stdlib.h>
-#include "main.h"
+#include <stdio.h>
 
 /**
- * _realloc - reallocates a memory block using malloc and free (realloc)
- * @ptr: pointer
- * @old_size: size of old pointer
- * @new_size: size of new pointer
- * Return: new void pointer or NULL if it fails
+ * string_nconcat - concat two strings to n bytes
+ * @s1: first string
+ * @s2: second string
+ * @n: number of bytes to concat of string 2
+ * Return: pointer to concatenated string or NULL if it fails
  */
 
-void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size)
+char *string_nconcat(char *s1, char *s2, unsigned int n)
 {
-	void *ptr1;
-	unsigned int x;
+	char *ptr;
+	unsigned int i, len1, len2;
+
+	if (!s1)
+		s1 = "";
+	if (!s2)
+		s2 = "";
+
+	for (len1 = 0; *(s1 + len1); len1++)
+		;
+	for (len2 = 0; *(s2 + len2); len2++)
+		;
+
+	if (len2 < n)
+		n = len2;
+
+	ptr = malloc((len1 + n + 1) * sizeof(char));
 
 	if (!ptr)
-	{
-		ptr1 = malloc(new_size);
-		if (!ptr1)
-			return (NULL);
-		return (ptr1);
-	}
-
-	if (new_size == 0 && ptr != NULL)
-	{
-		free(ptr);
-		return (NULL);
-	}
-
-	if (new_size == old_size)
-		return (ptr);
-
-	ptr1 = malloc(new_size);
-
-	if (!ptr1)
 		return (NULL);
 
-	if (new_size < old_size)
-		for (; x < new_size; x++)
-			((char *)ptr1)[x] = ((char *)ptr)[x];
-	else
-		for (; x < old_size; x++)
-			((char *)ptr1)[x] = ((char *)ptr)[x];
+	for (i = 0; i < (len1 + n); i++)
+	{
+		if (i < len1)
+			ptr[i] = s1[i];
+		else
+			ptr[i] = s2[i - len1];
+	}
+	ptr[i] = '\0';
 
-	free(ptr);
-
-	return (ptr1);
+	return (ptr);
 }
