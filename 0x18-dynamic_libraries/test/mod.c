@@ -1,6 +1,6 @@
 #include "calc.h"
 
-int mol(int a, int b)
+int mod(int a, int b)
 {
         return (a % b);
 }
